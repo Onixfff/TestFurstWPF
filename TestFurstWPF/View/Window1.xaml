@@ -1,4 +1,5 @@
 ﻿<Window x:Class="TestFurstWPF.View.Window1"
+        xmlns:converters="clr-namespace:TestFurstWPF.Converters"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,12 +7,16 @@
 		xmlns:local="clr-namespace:TestFurstWPF.View"
 		mc:Ignorable="d"
 		Title="Главная" Height="450" Width="auto" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico">
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Resources/Style/Window1Style/Window1Style.xaml"/>
+                <!-- Подключение стилей -->
+                <ResourceDictionary Source="../Resources/Style/Window1Style/Window1Style.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Конвертер -->
+            <converters:VisibilityToWidthConverter x:Key="VisibilityToWidthConverter" />
         </ResourceDictionary>
     </Window.Resources>
 
@@ -19,7 +24,7 @@
     <Border Margin="10" Background="#bbdefb">
 
 		<StackPanel>
-
+			<!--Рабочее пространство с кнопками и Combobox-->
 			<StackPanel Orientation="Horizontal" >
 			   
 				<!--Кнопка обновления-->
@@ -72,16 +77,27 @@
 
 			</StackPanel>
 
+            <!--Основное поле-->
 			<Grid>
 				
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="auto" />
-					<ColumnDefinition Width="auto" />
-				</Grid.ColumnDefinitions>
+                    <!-- Колонка для DataGrid -->
+                    <ColumnDefinition Width="{Binding ElementName=ListBoxControl, Path=Visibility, Converter={StaticResource VisibilityToWidthConverter}}" />
+                    <!-- Колонка для ListBox -->
+                    <ColumnDefinition Width="{Binding ElementName=DataGrid, Path=Visibility, Converter={StaticResource VisibilityToWidthConverter}}"/>
+                </Grid.ColumnDefinitions>
 				
 				<!-- DataGrid -->
 				
-				<DataGrid Grid.Column="0" ItemsSource="{Binding Downtimes}" MaxHeight="300" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0 10 0 0">
+				<DataGrid 
+                    x:Name="DataGrid"
+                    Grid.Column="0"
+                    ItemsSource="{Binding Downtimes}"
+                    MaxHeight="400"
+                    AutoGenerateColumns="False"
+                    VerticalScrollBarVisibility="Visible"
+                    IsReadOnly="True"
+                    Margin="0 10 0 0">
 
 					<DataGrid.Columns>
 						<DataGridTextColumn Header="Начало" Binding="{Binding Timestamp}" Width="150"/>
@@ -94,7 +110,11 @@
 
 				</DataGrid>
 
-				<ListBox Grid.Column="1" Visibility="Hidden">
+				<ListBox
+                    x:Name="ListBoxControl"
+                    Grid.Column="1"
+                    Visibility="Collapsed"
+                    >
 					
 				</ListBox>
 				
