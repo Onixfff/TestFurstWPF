@@ -5,17 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestFurstWPF.View"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
+        Title="Window1" Height="450" Width="800" Background="#e3f2fd">
 
-    <Border Margin="10">
+    <Border Margin="10" Background="#bbdefb">
 
         <StackPanel>
-            
-            <StackPanel Orientation="Horizontal" >
-                
-                <Button Margin="0 0 5 0" Content="Обновить"></Button>
 
-                <Button Margin="5 0 5 0" Content="Архив"></Button>
+            <StackPanel Orientation="Horizontal" >
+               
+                <!--Кнопка обновления-->
+                <Button Margin="5 5 5 0" Background="{x:Null}" BorderBrush="{x:Null}">
+                    <!--Картинка-->
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/Resources/Update0_64x64-32.png" Width="30" OpacityMask="Black"/>
+                    </StackPanel>
+
+                    <!--Подсказка-->
+                    <Button.ToolTip>
+                        <ToolTip HasDropShadow="False" Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+                            <TextBlock Text="Обновить"/>
+                        </ToolTip>
+                    </Button.ToolTip>
+                
+                </Button>
+                
+                <!--Кнопка Архива-->
+                <Button Margin="5 5 5 0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                    <!--Картинка-->
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="pack://application:,,,/Resources/folder.png" Width="30"/>
+                    </StackPanel>
+                    <!--Подсказка-->
+                    <Button.ToolTip>
+                        <ToolTip Background="Aqua" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+                            <TextBlock Text="Архив"/>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
 
                 <ComboBox Margin="5 0 5 0" SelectedIndex="0" Padding="2">
                     
