@@ -63,9 +63,19 @@ namespace TestFurstWPF.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        internal static byte[] Folder {
+        internal static byte[] folder {
             get {
-                object obj = ResourceManager.GetObject("Folder", resourceCulture);
+                object obj = ResourceManager.GetObject("folder", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Info {
+            get {
+                object obj = ResourceManager.GetObject("Info", resourceCulture);
                 return ((byte[])(obj));
             }
         }

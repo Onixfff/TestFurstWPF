@@ -14,15 +14,13 @@
             <StackPanel Orientation="Horizontal" >
                
                 <!--Кнопка обновления-->
-                <Button Margin="5 5 5 0" Background="{x:Null}" BorderBrush="{x:Null}">
+                <Button Margin="5 5 5 0" Background="{x:Null}" BorderBrush="{x:Null}" Width="40">
                     <!--Картинка-->
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://application:,,,/Resources/Update0_64x64-32.png" Width="30" OpacityMask="Black"/>
-                    </StackPanel>
+                    <Image Source="pack://application:,,,/Resources/Update0_64x64-32.png" Width="30" OpacityMask="Black"/>
 
                     <!--Подсказка-->
                     <Button.ToolTip>
-                        <ToolTip HasDropShadow="False" Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+                        <ToolTip Background="Aqua" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
                             <TextBlock Text="Обновить"/>
                         </ToolTip>
                     </Button.ToolTip>
@@ -30,27 +28,35 @@
                 </Button>
                 
                 <!--Кнопка Архива-->
-                <Button Margin="5 5 5 0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}">
+                <Button Margin="5 5 5 0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="40">
                     <!--Картинка-->
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="pack://application:,,,/Resources/folder.png" Width="30"/>
-                    </StackPanel>
+                    <Image Source="pack://application:,,,/Resources/folder.png" Width="30"/>
                     <!--Подсказка-->
                     <Button.ToolTip>
-                        <ToolTip Background="Aqua" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="15" VerticalOffset="10">
+                        <ToolTip Background="Aqua" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
                             <TextBlock Text="Архив"/>
                         </ToolTip>
                     </Button.ToolTip>
                 </Button>
 
-                <ComboBox Margin="5 0 5 0" SelectedIndex="0" Padding="2">
-                    
+                <ComboBox Margin="5 0 5 0" SelectedIndex="0" Padding="2" Width="200">
+
                     <ComboBoxItem>Все</ComboBoxItem>
                     
                 </ComboBox>
+                
+                <!--Кнопка Помощь-->
+                <Button Margin="5 5 0 0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="40">
+                    <!--Картинка-->
+                    <Image Source="pack://application:,,,/Resources/Info.png" StretchDirection="DownOnly" Stretch="Fill"/>
+                    <!--Подсказка-->
+                    <Button.ToolTip>
+                        <ToolTip Background="Aqua" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+                            <TextBlock Text="Помощь"/>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
 
-                <Button Margin="5 0 0 0" Content="Помощь"/>
-                    
             </StackPanel>
 
             <Grid>
