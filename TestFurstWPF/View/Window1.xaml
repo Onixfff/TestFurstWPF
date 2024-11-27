@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:TestFurstWPF.View"
 		mc:Ignorable="d"
-		Title="Главная" Height="450" Width="800" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico">
+		Title="Главная" Height="450" Width="auto" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico">
     
     <Window.Resources>
         <ResourceDictionary>
@@ -94,7 +94,7 @@
 
 				</DataGrid>
 
-				<ListBox Grid.Column="1">
+				<ListBox Grid.Column="1" Visibility="Hidden">
 					
 				</ListBox>
 				
