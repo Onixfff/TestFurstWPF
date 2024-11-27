@@ -89,5 +89,15 @@ namespace TestFurstWPF.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] WinIco {
+            get {
+                object obj = ResourceManager.GetObject("WinIco", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
