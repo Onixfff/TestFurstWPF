@@ -61,6 +61,24 @@ namespace TestFurstWPF.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+        ///                    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;&gt;
+        ///    
+        ///    &lt;Style TargetType=&quot;Button&quot;&gt;
+        ///        &lt;Setter Property=&quot;Background&quot; Value=&quot;null&quot;/&gt;
+        ///        &lt;Setter Property=&quot;Foreground&quot; Value= &quot;null&quot;/&gt;
+        ///        &lt;Setter Property=&quot;Margin&quot; Value=&quot;5 5 0 5&quot;/&gt;
+        ///    &lt;/Style&gt;
+        ///    
+        ///&lt;/ResourceDictionary&gt;.
+        /// </summary>
+        internal static string Buttons {
+            get {
+                return ResourceManager.GetString("Buttons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
         internal static byte[] folder {
@@ -86,16 +104,6 @@ namespace TestFurstWPF.Properties {
         internal static byte[] Update {
             get {
                 object obj = ResourceManager.GetObject("Update", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Byte[].
-        /// </summary>
-        internal static byte[] WinIco {
-            get {
-                object obj = ResourceManager.GetObject("WinIco", resourceCulture);
                 return ((byte[])(obj));
             }
         }

@@ -1,94 +1,107 @@
 ﻿<Window x:Class="TestFurstWPF.View.Window1"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestFurstWPF.View"
-        mc:Ignorable="d"
-        Title="Главная" Height="450" Width="800" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico">
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:TestFurstWPF.View"
+		mc:Ignorable="d"
+		Title="Главная" Height="450" Width="800" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Style/Window1Style/Window1Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
 
     <Border Margin="10" Background="#bbdefb">
 
-        <StackPanel>
+		<StackPanel>
 
-            <StackPanel Orientation="Horizontal" >
-               
-                <!--Кнопка обновления-->
-                <Button Margin="5 5 5 0" Background="{x:Null}" BorderBrush="{x:Null}" Width="40">
-                    <!--Картинка-->
-                    <Image Source="pack://application:,,,/Resources/Update0_64x64-32.png" Width="30" OpacityMask="Black"/>
+			<StackPanel Orientation="Horizontal" >
+			   
+				<!--Кнопка обновления-->
+                <Button Style="{StaticResource ButtonStyle}">
+					<!--Картинка-->
+					<Image Source="pack://application:,,,/Resources/Update0_64x64-32.png" Width="30" OpacityMask="Black"/>
 
-                    <!--Подсказка-->
-                    <Button.ToolTip>
-                        <ToolTip Background="Aqua" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
-                            <TextBlock Text="Обновить"/>
-                        </ToolTip>
-                    </Button.ToolTip>
-                
-                </Button>
-                
-                <!--Кнопка Архива-->
-                <Button Margin="5 5 5 0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="40">
-                    <!--Картинка-->
-                    <Image Source="pack://application:,,,/Resources/folder.png" Width="30"/>
-                    <!--Подсказка-->
-                    <Button.ToolTip>
-                        <ToolTip Background="Aqua" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
-                            <TextBlock Text="Архив"/>
-                        </ToolTip>
-                    </Button.ToolTip>
-                </Button>
+					<!--Подсказка-->
+					<Button.ToolTip>
+						<ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+							<TextBlock Text="Обновить"/>
+						</ToolTip>
+					</Button.ToolTip>
+				
+				</Button>
+				
+				<!--Кнопка Архива-->
+				<Button Style="{StaticResource ButtonStyle}" >
+					<!--Картинка-->
+					<Image Source="pack://application:,,,/Resources/folder.png" Width="30"/>
+					<!--Подсказка-->
+					<Button.ToolTip>
+						<ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+							<TextBlock Text="Архив"/>
+						</ToolTip>
+					</Button.ToolTip>
+				</Button>
 
-                <ComboBox Margin="5 5 5 5" SelectedIndex="0" Width="200" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+				<ComboBox Margin="5 5 0 5" SelectedIndex="0" Width="200" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFFF0C00">
+					<ComboBox.ToolTip>
+						<ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+							<TextBlock Text="Выборка рецептов"/>
+						</ToolTip>
+					</ComboBox.ToolTip>
+					<ComboBoxItem>Все</ComboBoxItem>
+					
+				</ComboBox>
+				
+				<!--Кнопка Помощь-->
+                <Button Style="{StaticResource ButtonStyle}">
+					<!--Картинка-->
+					<Image Source="pack://application:,,,/Resources/Info.png" StretchDirection="DownOnly" Stretch="Fill"/>
+					<!--Подсказка-->
+					<Button.ToolTip>
+						<ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+							<TextBlock Text="Помощь"/>
+						</ToolTip>
+					</Button.ToolTip>
+				</Button>
 
-                    <ComboBoxItem>Все</ComboBoxItem>
-                    
-                </ComboBox>
-                
-                <!--Кнопка Помощь-->
-                <Button Margin="5 5 0 0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Width="40">
-                    <!--Картинка-->
-                    <Image Source="pack://application:,,,/Resources/Info.png" StretchDirection="DownOnly" Stretch="Fill"/>
-                    <!--Подсказка-->
-                    <Button.ToolTip>
-                        <ToolTip Background="Aqua" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
-                            <TextBlock Text="Помощь"/>
-                        </ToolTip>
-                    </Button.ToolTip>
-                </Button>
+			</StackPanel>
 
-            </StackPanel>
+			<Grid>
+				
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="auto" />
+					<ColumnDefinition Width="auto" />
+				</Grid.ColumnDefinitions>
+				
+				<!-- DataGrid -->
+				
+				<DataGrid Grid.Column="0" ItemsSource="{Binding Downtimes}" MaxHeight="300" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0 10 0 0">
 
-            <Grid>
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                
-                <!-- DataGrid -->
-                
-                <DataGrid Grid.Column="0" ItemsSource="{Binding Downtimes}" MaxHeight="300" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Margin="0 10 0 0">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Начало" Binding="{Binding Timestamp}" Width="150"/>
+						<DataGridTextColumn Header="Конец" Binding="{Binding TimestampEnd}" Width="150"/>
+						<DataGridTextColumn Header="Время простоя" Binding="{Binding Difference }" Width="150"/>
+						<DataGridTextColumn Header="Рецепт" Binding="{Binding Recept}" Width="150"/>
+						<DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}" Width="200"/>
+						<DataGridTextColumn Header="Вид простоя" Binding="{Binding IdIdleNavigation.Name }" Width="150"/>
+					</DataGrid.Columns>
 
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Начало" Binding="{Binding Timestamp}" Width="150"/>
-                        <DataGridTextColumn Header="Конец" Binding="{Binding TimestampEnd}" Width="150"/>
-                        <DataGridTextColumn Header="Время простоя" Binding="{Binding Difference }" Width="150"/>
-                        <DataGridTextColumn Header="Рецепт" Binding="{Binding Recept}" Width="150"/>
-                        <DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}" Width="200"/>
-                        <DataGridTextColumn Header="Вид простоя" Binding="{Binding IdIdleNavigation.Name }" Width="150"/>
-                    </DataGrid.Columns>
+				</DataGrid>
 
-                </DataGrid>
+				<ListBox Grid.Column="1">
+					
+				</ListBox>
+				
+			</Grid>
 
-                <ListBox Grid.Column="1">
-                    
-                </ListBox>
-                
-            </Grid>
+		</StackPanel>
 
-        </StackPanel>
-
-    </Border>
-    
+	</Border>
+	
 </Window>
