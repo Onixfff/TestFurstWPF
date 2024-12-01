@@ -6,7 +6,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:TestFurstWPF.View"
 		mc:Ignorable="d"
-		Title="Главная" Height="450" Width="auto" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico">
+		Title="Главная" MaxHeight="1000" MaxWidth="1300" Height="450" Width="1000" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico">
 
     <Window.Resources>
         <ResourceDictionary>

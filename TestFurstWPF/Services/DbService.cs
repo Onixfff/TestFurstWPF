@@ -15,7 +15,7 @@ namespace TestFurstWPF.Services
             try
             {
                 // Выполняем GET-запрос
-                var response = await _httpClient.GetAsync("/api/DownTime/downtime?start=2024-11-10T00:00:00&end=2024-12-20T23:59:59");
+                var response = await _httpClient.GetAsync($"/api/DownTime/downtime?date={DateTime.Now.ToString("s")}");
 
                 // Проверяем, успешен ли запрос
                 if (response.IsSuccessStatusCode)

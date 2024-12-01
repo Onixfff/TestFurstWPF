@@ -6,7 +6,7 @@ namespace TestFurstWPF.ViewModels
 {
     public class DownTimeViewModel
     {
-        private readonly DbService _db;
+        private readonly DbService _db = new DbService();
 
         // Коллекция данных для DataGrid
         public ObservableCollection<Downtime> Downtimes { get; set; }
@@ -16,7 +16,6 @@ namespace TestFurstWPF.ViewModels
 
         public DownTimeViewModel()
         {
-            _db = new DbService();
             Downtimes = new ObservableCollection<Downtime>();
             RefreshCommand = new RelayCommand(async () => await LoadDowntimesAsync());
 
