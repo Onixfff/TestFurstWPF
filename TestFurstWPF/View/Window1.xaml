@@ -6,7 +6,8 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:TestFurstWPF.View"
 		mc:Ignorable="d"
-		Title="Главная" MaxHeight="1000" MaxWidth="1300" Height="450" Width="1000" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico">
+		Title="Главная" MaxHeight="1000" MaxWidth="1300" Height="450" Width="1000" Background="#e3f2fd" Icon="pack://application:,,,/Resources/WinIco.ico"
+        Loaded="Window_Load">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -16,6 +17,7 @@
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Конвертер -->
+            <converters:ErrorMessageToVisibilityConverter x:Key="ErrorMessageToVisibilityConverter"/>
             <converters:VisibilityToWidthConverter x:Key="VisibilityToWidthConverter" />
         </ResourceDictionary>
     </Window.Resources>
@@ -28,7 +30,8 @@
             <StackPanel Orientation="Horizontal" >
 
                 <!--Кнопка обновления-->
-                <Button Style="{StaticResource ButtonStyle}">
+                <Button Command="{Binding RefreshCommand}"
+                        Style="{StaticResource ButtonStyle}">
                     <!--Картинка-->
                     <Image Source="pack://application:,,,/Resources/Update0_64x64-32.png" Width="30" OpacityMask="Black"/>
 
@@ -120,7 +123,9 @@
 
             </Grid>
             <!--Поле с выводом информации об ошибке-->
-            <TextBlock Text="Ошибка (данные не переданы)" Visibility="Collapsed" Foreground="Red">
+            <TextBlock Text="{Binding ErrorMessage}"
+                       Visibility="{Binding ErrorMessage, Converter={StaticResource ErrorMessageToVisibilityConverter}}"
+                       Foreground="Red">
 
             </TextBlock>
             

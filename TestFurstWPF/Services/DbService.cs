@@ -46,6 +46,12 @@ namespace TestFurstWPF.Services
                         return Result.Success(new List<Downtime>());
                     }
                 }
+                else if (requestUri.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    _errorMessage = "Пустой список";
+                    _logger.LogInformation(_errorMessage);
+                    return Result.Success(new List<Downtime>());
+                }
                 else
                 {
                     // Логируем ошибку

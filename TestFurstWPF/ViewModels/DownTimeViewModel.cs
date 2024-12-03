@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
+using System.Windows;
 using TestFurstWPF.Services;
 
 namespace TestFurstWPF.ViewModels
@@ -16,7 +16,7 @@ namespace TestFurstWPF.ViewModels
         private ObservableCollection<Downtime> downtimes;
 
         [ObservableProperty]
-        private string? errorMessage;
+        private string? _errorMessage;
 
         public IAsyncRelayCommand RefreshCommand { get; }
 
@@ -26,39 +26,41 @@ namespace TestFurstWPF.ViewModels
             _db = db;
             Downtimes = new ObservableCollection<Downtime>();
             RefreshCommand = new AsyncRelayCommand(LoadDowntimesAsync);
-
-            // Загрузка данных при инициализации
-            Task.Run(() => RefreshCommand.ExecuteAsync(null));
         }
 
-        private async Task LoadDowntimesAsync()
+        public async Task LoadDowntimesAsync()
         {
             try
             {
-                var updatedDowntimes = await Task.Run(async () =>
+                var result = await _db.GetDownTimeAsync();
+
+                if (result.IsFailure)
                 {
-                    var result = await _db.GetDownTimeAsync();
+                    ErrorMessage = $"Ошибка {result.Error}";
+                }
 
-                    var tempCollection = new ObservableCollection<Downtime>();
-
-                    if (result.IsFailure)
+                if (result.IsSuccess)
+                {
+                    if (result.Value.Count > 0)
                     {
-                        tempCollection.Add(new Downtime());
-                    }
+                        Downtimes.Clear();
+                        foreach (var downtime in result.Value)
+                        {
+                            Downtimes.Add(downtime);
+                        }
+                        ErrorMessage = null;
 
-                    foreach (var downtime in result.Value)
+                        _logger.LogInformation("Данные успешно загружены.");
+                    }
+                    else
                     {
-                        tempCollection.Add(downtime);
+                        ErrorMessage = $"Данных пока нет";
                     }
-
-                    return tempCollection;
-                });
-
-                Downtimes = updatedDowntimes;
+                }
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Ошибка загрузки данных: {ex.Message}");
+                _logger.LogError(ex, "Ошибка загрузки данных");
                 ErrorMessage = $"Ошибка: {ex.Message}";
             }
         }

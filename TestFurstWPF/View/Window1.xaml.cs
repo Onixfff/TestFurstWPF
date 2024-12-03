@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Windows;
+﻿using System.Windows;
 using TestFurstWPF.ViewModels;
 
 namespace TestFurstWPF.View
@@ -16,6 +15,11 @@ namespace TestFurstWPF.View
             InitializeComponent();
             _downTimeViewModel = viewModel;
             DataContext = _downTimeViewModel;
+        }
+
+        private async void Window_Load(object sender, RoutedEventArgs e)
+        {
+            await _downTimeViewModel.LoadDowntimesAsync();
         }
     }
 }
