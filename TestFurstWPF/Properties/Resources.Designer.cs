@@ -63,11 +63,12 @@ namespace TestFurstWPF.Properties {
         /// <summary>
         ///   Ищет локализованную строку, похожую на &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
         ///                    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;&gt;
-        ///    
-        ///    &lt;Style TargetType=&quot;Button&quot;&gt;
-        ///        &lt;Setter Property=&quot;Background&quot; Value=&quot;null&quot;/&gt;
-        ///        &lt;Setter Property=&quot;Foreground&quot; Value= &quot;null&quot;/&gt;
-        ///        &lt;Setter Property=&quot;Margin&quot; Value=&quot;5 5 0 5&quot;/&gt;
+        ///
+        ///    &lt;Style x:Key=&quot;ButtonStyle&quot; TargetType=&quot;Button&quot;&gt;
+        ///        &lt;Setter Property=&quot;Margin&quot; Value=&quot;5 5 5 5&quot;/&gt;
+        ///        &lt;Setter Property=&quot;Background&quot; Value=&quot;{x:Null}&quot;/&gt;
+        ///        &lt;Setter Property=&quot;BorderBrush&quot; Value=&quot;{x:Null}&quot;/&gt;
+        ///        &lt;Setter Property=&quot;Width&quot; Value=&quot;40&quot;/&gt;
         ///    &lt;/Style&gt;
         ///    
         ///&lt;/ResourceDictionary&gt;.
