@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace TestFurstWPF.Converters
 {
-    
+
     public class VisibilityToWidthConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -15,7 +15,7 @@ namespace TestFurstWPF.Converters
                 {
                     return new GridLength(1, GridUnitType.Star);
                 }
-                else if(visibility == Visibility.Visible)
+                else if (visibility == Visibility.Visible)
                 {
                     return new GridLength(0, GridUnitType.Star);
                 }

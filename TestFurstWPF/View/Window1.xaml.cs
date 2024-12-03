@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.Logging;
+using System.Windows;
 using TestFurstWPF.ViewModels;
 
 namespace TestFurstWPF.View
@@ -8,10 +9,13 @@ namespace TestFurstWPF.View
     /// </summary>
     public partial class Window1 : Window
     {
-        public Window1()
+        private DownTimeViewModel _downTimeViewModel;
+
+        public Window1(DownTimeViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = new DownTimeViewModel();
+            _downTimeViewModel = viewModel;
+            DataContext = _downTimeViewModel;
         }
     }
 }

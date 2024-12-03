@@ -1,48 +1,65 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CSharpFunctionalExtensions;
+using Microsoft.Extensions.Logging;
+using System.Collections.ObjectModel;
 using TestFurstWPF.Services;
 
 namespace TestFurstWPF.ViewModels
 {
-    public class DownTimeViewModel
+    public partial class DownTimeViewModel : ObservableObject
     {
-        private readonly DbService _db = new DbService();
+        private readonly DbService _db;
+        private readonly ILogger<DownTimeViewModel> _logger;
 
-        // Коллекция данных для DataGrid
-        public ObservableCollection<Downtime> Downtimes { get; set; }
+        [ObservableProperty]
+        private ObservableCollection<Downtime> downtimes;
 
-        // Команда для обновления данных
-        public ICommand RefreshCommand { get; }
+        [ObservableProperty]
+        private string? errorMessage;
 
-        public DownTimeViewModel()
+        public IAsyncRelayCommand RefreshCommand { get; }
+
+        public DownTimeViewModel(DbService db, ILogger<DownTimeViewModel> logger)
         {
+            _logger = logger;
+            _db = db;
             Downtimes = new ObservableCollection<Downtime>();
-            RefreshCommand = new RelayCommand(async () => await LoadDowntimesAsync());
+            RefreshCommand = new AsyncRelayCommand(LoadDowntimesAsync);
 
-            // Загрузка данных при старте
-            Task.Run(LoadDowntimesAsync);
+            // Загрузка данных при инициализации
+            Task.Run(() => RefreshCommand.ExecuteAsync(null));
         }
 
         private async Task LoadDowntimesAsync()
         {
             try
             {
-                var data = await _db.GetDownTimeAsync();
-
-                // Обновляем коллекцию на основном потоке
-                App.Current.Dispatcher.Invoke(() =>
+                var updatedDowntimes = await Task.Run(async () =>
                 {
-                    Downtimes.Clear();
-                    foreach (var downtime in data)
+                    var result = await _db.GetDownTimeAsync();
+
+                    var tempCollection = new ObservableCollection<Downtime>();
+
+                    if (result.IsFailure)
                     {
-                        Downtimes.Add(downtime);
+                        tempCollection.Add(new Downtime());
                     }
+
+                    foreach (var downtime in result.Value)
+                    {
+                        tempCollection.Add(downtime);
+                    }
+
+                    return tempCollection;
                 });
+
+                Downtimes = updatedDowntimes;
             }
             catch (Exception ex)
             {
-                // Обработка ошибок
                 System.Diagnostics.Debug.WriteLine($"Ошибка загрузки данных: {ex.Message}");
+                ErrorMessage = $"Ошибка: {ex.Message}";
             }
         }
     }

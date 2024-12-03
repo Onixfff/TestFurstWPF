@@ -1,45 +1,64 @@
-﻿using Newtonsoft.Json;
+﻿using CSharpFunctionalExtensions;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System.Net.Http;
+
 
 namespace TestFurstWPF.Services
 {
-    class DbService
+    public class DbService
     {
+        private readonly ILogger<DbService> _logger;
+        private string? _errorMessage = null;
+
+        public DbService(ILogger<DbService> logger)
+        {
+            _logger = logger;
+        }
+
         private static readonly HttpClient _httpClient = new HttpClient
         {
             BaseAddress = new Uri("http://localhost:5048")
         };
 
-        public async Task<List<Downtime>> GetDownTimeAsync()
+        public async Task<Result<List<Downtime>>> GetDownTimeAsync()
         {
             try
             {
-                // Выполняем GET-запрос
-                var response = await _httpClient.GetAsync($"/api/DownTime/downtime?date={DateTime.Now.ToString("s")}");
+                var requestUri = await _httpClient.GetAsync($"/api/DownTime/downtime?date={DateTime.Now.ToString("s")}");
+                _logger.LogInformation("Выполняется запрос к API: {RequestUri}", requestUri);
 
-                // Проверяем, успешен ли запрос
-                if (response.IsSuccessStatusCode)
+                if (requestUri.IsSuccessStatusCode)
                 {
-                    // Считываем контент ответа как строку
-                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var jsonResponse = await requestUri.Content.ReadAsStringAsync();
 
-                    // Десериализуем JSON в список объектов Downtime
-                    var downtimeList = JsonConvert.DeserializeObject<List<Downtime>>(jsonResponse);
+                    List<Downtime>? downtimeList = JsonConvert.DeserializeObject<List<Downtime>>(jsonResponse);
+                    _logger.LogInformation("Данные успешно получены и десериализованы. Количество записей: {Count}", downtimeList?.Count ?? 0);
 
-                    return downtimeList ?? new List<Downtime>();
+                    if (downtimeList != null)
+                    {
+                        return Result.Success(downtimeList);
+                    }
+                    else
+                    {
+                        _errorMessage = "Пустой список";
+                        _logger.LogInformation(_errorMessage);
+                        return Result.Success(new List<Downtime>());
+                    }
                 }
                 else
                 {
                     // Логируем ошибку
-                    Console.WriteLine($"Ошибка HTTP-запроса: {(int)response.StatusCode} - {response.ReasonPhrase}");
-                    return new List<Downtime>();
+                    _errorMessage = $"Ошибка HTTP-запроса: {(int)requestUri.StatusCode} - {requestUri.ReasonPhrase}";
+                    _logger.LogWarning(_errorMessage);
+                    return Result.Failure<List<Downtime>>(_errorMessage);
                 }
             }
             catch (Exception ex)
             {
-                // Логируем исключение
-                Console.WriteLine($"Исключение при запросе данных: {ex.Message}");
-                return new List<Downtime>();
+                _errorMessage = $"Исключение при выполнении запроса к API.";
+                _logger.LogError(ex, _errorMessage);
+                return Result.Failure<List<Downtime>>(_errorMessage);
             }
         }
     }

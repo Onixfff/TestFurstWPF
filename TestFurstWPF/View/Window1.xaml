@@ -23,73 +23,73 @@
 
     <Border Margin="10" Background="#bbdefb">
 
-		<StackPanel>
-			<!--Рабочее пространство с кнопками и Combobox-->
-			<StackPanel Orientation="Horizontal" >
-			   
-				<!--Кнопка обновления-->
+        <StackPanel>
+            <!--Рабочее пространство с кнопками и Combobox-->
+            <StackPanel Orientation="Horizontal" >
+
+                <!--Кнопка обновления-->
                 <Button Style="{StaticResource ButtonStyle}">
-					<!--Картинка-->
-					<Image Source="pack://application:,,,/Resources/Update0_64x64-32.png" Width="30" OpacityMask="Black"/>
+                    <!--Картинка-->
+                    <Image Source="pack://application:,,,/Resources/Update0_64x64-32.png" Width="30" OpacityMask="Black"/>
 
-					<!--Подсказка-->
-					<Button.ToolTip>
-						<ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
-							<TextBlock Text="Обновить"/>
-						</ToolTip>
-					</Button.ToolTip>
-				
-				</Button>
-				
-				<!--Кнопка Архива-->
-				<Button Style="{StaticResource ButtonStyle}" >
-					<!--Картинка-->
-					<Image Source="pack://application:,,,/Resources/folder.png" Width="30"/>
-					<!--Подсказка-->
-					<Button.ToolTip>
-						<ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
-							<TextBlock Text="Архив"/>
-						</ToolTip>
-					</Button.ToolTip>
-				</Button>
+                    <!--Подсказка-->
+                    <Button.ToolTip>
+                        <ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+                            <TextBlock Text="Обновить"/>
+                        </ToolTip>
+                    </Button.ToolTip>
 
-				<ComboBox Margin="5 5 0 5" SelectedIndex="0" Width="200" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFFF0C00">
-					<ComboBox.ToolTip>
-						<ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
-							<TextBlock Text="Выборка рецептов"/>
-						</ToolTip>
-					</ComboBox.ToolTip>
-					<ComboBoxItem>Все</ComboBoxItem>
-					
-				</ComboBox>
-				
-				<!--Кнопка Помощь-->
+                </Button>
+
+                <!--Кнопка Архива-->
+                <Button Style="{StaticResource ButtonStyle}" >
+                    <!--Картинка-->
+                    <Image Source="pack://application:,,,/Resources/folder.png" Width="30"/>
+                    <!--Подсказка-->
+                    <Button.ToolTip>
+                        <ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+                            <TextBlock Text="Архив"/>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
+
+                <ComboBox Margin="5 5 0 5" SelectedIndex="0" Width="200" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="{x:Null}" BorderBrush="#FFFF0C00">
+                    <ComboBox.ToolTip>
+                        <ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+                            <TextBlock Text="Выборка рецептов"/>
+                        </ToolTip>
+                    </ComboBox.ToolTip>
+                    <ComboBoxItem>Все</ComboBoxItem>
+
+                </ComboBox>
+
+                <!--Кнопка Помощь-->
                 <Button Style="{StaticResource ButtonStyle}">
-					<!--Картинка-->
-					<Image Source="pack://application:,,,/Resources/Info.png" StretchDirection="DownOnly" Stretch="Fill"/>
-					<!--Подсказка-->
-					<Button.ToolTip>
-						<ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
-							<TextBlock Text="Помощь"/>
-						</ToolTip>
-					</Button.ToolTip>
-				</Button>
+                    <!--Картинка-->
+                    <Image Source="pack://application:,,,/Resources/Info.png" StretchDirection="DownOnly" Stretch="Fill"/>
+                    <!--Подсказка-->
+                    <Button.ToolTip>
+                        <ToolTip Background="#64b5f6" Foreground="White" HasDropShadow="False" Placement="Relative" HorizontalOffset="23" VerticalOffset="40">
+                            <TextBlock Text="Помощь"/>
+                        </ToolTip>
+                    </Button.ToolTip>
+                </Button>
 
-			</StackPanel>
+            </StackPanel>
 
             <!--Основное поле-->
-			<Grid>
-				
-				<Grid.ColumnDefinitions>
+            <Grid>
+
+                <Grid.ColumnDefinitions>
                     <!-- Колонка для DataGrid -->
                     <ColumnDefinition Width="{Binding ElementName=ListBoxControl, Path=Visibility, Converter={StaticResource VisibilityToWidthConverter}}" />
                     <!-- Колонка для ListBox -->
                     <ColumnDefinition Width="{Binding ElementName=DataGrid, Path=Visibility, Converter={StaticResource VisibilityToWidthConverter}}"/>
                 </Grid.ColumnDefinitions>
-				
-				<!-- DataGrid -->
-				
-				<DataGrid 
+
+                <!-- DataGrid -->
+
+                <DataGrid 
                     x:Name="DataGrid"
                     Grid.Column="0"
                     ItemsSource="{Binding Downtimes}"
@@ -99,29 +99,32 @@
                     IsReadOnly="True"
                     Margin="0 10 0 0">
 
-					<DataGrid.Columns>
-						<DataGridTextColumn Header="Начало" Binding="{Binding Timestamp}" Width="150"/>
-						<DataGridTextColumn Header="Конец" Binding="{Binding TimestampEnd}" Width="150"/>
-						<DataGridTextColumn Header="Время простоя" Binding="{Binding Difference }" Width="150"/>
-						<DataGridTextColumn Header="Рецепт" Binding="{Binding Recept}" Width="150"/>
-						<DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}" Width="200"/>
-						<DataGridTextColumn Header="Вид простоя" Binding="{Binding IdIdleNavigation.Name }" Width="150"/>
-					</DataGrid.Columns>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Начало" Binding="{Binding Timestamp}" Width="150"/>
+                        <DataGridTextColumn Header="Конец" Binding="{Binding TimestampEnd}" Width="150"/>
+                        <DataGridTextColumn Header="Время простоя" Binding="{Binding Difference }" Width="150"/>
+                        <DataGridTextColumn Header="Рецепт" Binding="{Binding Recept}" Width="150"/>
+                        <DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}" Width="200"/>
+                        <DataGridTextColumn Header="Вид простоя" Binding="{Binding IdIdleNavigation.Name }" Width="150"/>
+                    </DataGrid.Columns>
 
-				</DataGrid>
+                </DataGrid>
 
-				<ListBox
+                <ListBox
                     x:Name="ListBoxControl"
                     Grid.Column="1"
                     Visibility="Collapsed"
                     >
-					
-				</ListBox>
-				
-			</Grid>
 
-		</StackPanel>
+                </ListBox>
 
-	</Border>
+            </Grid>
+            <!--Поле с выводом информации об ошибке-->
+            <TextBlock Text="Ошибка (данные не переданы)" Visibility="Collapsed" Foreground="Red">
+
+            </TextBlock>
+            
+        </StackPanel>
+    </Border>
 	
 </Window>
