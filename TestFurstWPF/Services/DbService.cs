@@ -16,16 +16,19 @@ namespace TestFurstWPF.Services
             _logger = logger;
         }
 
-        private static readonly HttpClient _httpClient = new HttpClient
+        private static readonly HttpClient client = new HttpClient
         {
-            BaseAddress = new Uri("http://localhost:5048")
+            BaseAddress = new Uri("https://192.168.100.100:5048")
         };
 
         public async Task<Result<List<Downtime>>> GetDownTimeAsync()
         {
             try
             {
-                var requestUri = await _httpClient.GetAsync($"/api/DownTime/downtime?date={DateTime.Now.ToString("s")}");
+                var requestUri = await client.GetAsync($"/api/DownTime/downtime?date={DateTime.Now:s}");
+                requestUri.EnsureSuccessStatusCode();
+
+                Console.WriteLine(await requestUri.Content.ReadAsStringAsync());
                 _logger.LogInformation("Выполняется запрос к API: {RequestUri}", requestUri);
 
                 if (requestUri.IsSuccessStatusCode)
